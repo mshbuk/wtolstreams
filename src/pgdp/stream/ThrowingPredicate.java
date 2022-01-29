@@ -1,10 +1,7 @@
 package pgdp.stream;
 
-// TODO
+@FunctionalInterface
 public interface ThrowingPredicate<T> {
-    @FunctionalInterface
-    private boolean test() {
-        return test();
-    }
+    boolean test() throws Exception;
 
 }
