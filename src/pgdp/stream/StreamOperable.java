@@ -1,4 +1,5 @@
 package pgdp.stream;
 
-public interface StreamOperable {
+public interface StreamOperable<T> {
+    StreamOperation<T> getStreamOperation();
 }

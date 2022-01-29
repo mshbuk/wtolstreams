@@ -1,9 +1,6 @@
 package pgdp.stream;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.function.BinaryOperator;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -220,7 +217,9 @@ public interface Stream<T> {
      * Erzeugt einen neuen Stream, der den übergebenen Stream nutzt
      */
     static <T> Stream<T> of(java.util.stream.Stream<T> javaStream) {
-        return null; // TODO
+        StreamIterator<T> iterator = StreamIterator.of(javaStream);
+        Stream<T> stream = new SourcePart<>(iterator, StreamCharacteristics.regular().withStreamSize(javaStream.count()));
+        return stream;
     }
 
     /**
@@ -231,7 +230,9 @@ public interface Stream<T> {
      *           Operationen nutzten diese Information zur Optimierung
      */
     static <T> Stream<T> of(Collection<T> col) {
-        return null; // TODO
+        StreamIterator<T> iterator = StreamIterator.of(col);
+        Stream<T> stream = new SourcePart<>(iterator, StreamCharacteristics.regular().withStreamSize(col.size()));
+        return stream;
     }
 
     /**
@@ -243,7 +244,9 @@ public interface Stream<T> {
      *           zur Optimierung
      */
     static <T> Stream<T> of(Set<T> col) {
-        return null; // TODO
+        StreamIterator<T> iterator = StreamIterator.of(col);
+        Stream<T> stream = new SourcePart<>(iterator, StreamCharacteristics.regular().withStreamSize(col.size()).withDistinct(true));
+        return stream;
     }
 
     /**
@@ -255,7 +258,9 @@ public interface Stream<T> {
      */
     @SafeVarargs
     static <T> Stream<T> of(T... elements) {
-        return null; // TODO
+       StreamIterator<T> iterator = StreamIterator.of(elements);
+       Stream<T> stream = new SourcePart<>(iterator, StreamCharacteristics.regular().withStreamSize(elements.length));
+       return stream;
     }
 
     //Translation into English:

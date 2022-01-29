@@ -31,12 +31,9 @@ public final class StreamCharacteristics {
         return checked;
     }
 
-    public OptionalLong withStreamSize(OptionalLong ol) {
-        return streamSize;
-    }
 
-    public StreamCharacteristics regular () {
-        StreamCharacteristics sc = new StreamCharacteristics(null, false, false);
+    public static StreamCharacteristics regular() {
+        StreamCharacteristics sc = new StreamCharacteristics();
         return sc;
     }
 
