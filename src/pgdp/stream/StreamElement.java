@@ -1,5 +1,6 @@
 package pgdp.stream;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -34,12 +35,15 @@ public class StreamElement<T> {
         return null;
     }
 
-    private void tryAdapt() {
-
+    public <R> StreamElement <R> tryAdapt () throws Exception {
+        if (!hasExceptions())
+            return new StreamElement<>(null, listOfExceptions);
+        else throw new Exception();
     }
 
-    private <T> StreamElement<T> of(T t) {
-        return null;
+    private static <T> StreamElement <T> of (T t){
+        List<Exception> list = new ArrayList<>();
+        return new StreamElement<>(t,list);
     }
 
     public int hashCode() {

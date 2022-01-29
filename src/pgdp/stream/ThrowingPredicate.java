@@ -2,5 +2,9 @@ package pgdp.stream;
 
 // TODO
 public interface ThrowingPredicate<T> {
-    // TODO
+    @FunctionalInterface
+    private boolean test() {
+        return test();
+    }
+
 }
