@@ -4,14 +4,16 @@ import java.util.List;
 import java.util.Objects;
 
 public class StreamElement<T> {
-    public T element;
-    public List<Exception> listOfExceptions;
+    private final T element;
+    private final List<Exception> listOfExceptions;
 
-    private StreamElement(T element) {
+    private StreamElement(T element, List<Exception> listOfExceptions) {
         this.element = element;
+        this.listOfExceptions = listOfExceptions;
     }
 
-    private StreamElement() {
+    private StreamElement(List<Exception> listOfExceptions) {
+        this.listOfExceptions = listOfExceptions;
         this.element = null;
     }
 

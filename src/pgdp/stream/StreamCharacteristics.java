@@ -25,5 +25,9 @@ public final class StreamCharacteristics {
         return checked;
     }
 
+    private StreamCharacteristics regular () {
+        return new StreamCharacteristics(OptionalLong.empty(), false, false);
+    }
+
 
 }
