@@ -90,28 +90,7 @@ public abstract class AbstractStreamPart <IN, OUT> implements Stream<OUT>, Strea
         return stream;
     }
 
-    @Override
-    public Stream<OUT> distinct() {
-        Set<OUT> result = new LinkedHashSet<>();
 
-        if (iterator.hasNext()) {
-            do {
-                result.add(iterator.next().getElement());
-            } while (iterator.hasNext());
-        }
-        Stream<OUT> stream = new IntermediatePart<OUT, OUT>(StreamIterator.of(result));
-        return stream;
-    }
-
-    @Override
-    public long count() {
-        return getSource().count();
-    }
-
-    @Override
-    public Optional<OUT> findFirst() {
-        return iterator.hasNext() ? Optional.of(iterator.next().getElement()) : Optional.empty();
-    }
 
     @Override
     public Optional<OUT> reduce(BinaryOperator<OUT> accumulator) {
@@ -143,22 +122,25 @@ public abstract class AbstractStreamPart <IN, OUT> implements Stream<OUT>, Strea
     }
 
     @Override
-    public Stream<OUT> onErrorMap(Function<? super List<Exception>, ? extends OUT> errorMapper) {
-        return null;
+    public Stream<OUT> distinct() {
+        Set<OUT> result = new LinkedHashSet<>();
+
+        if (iterator.hasNext()) {
+            do {
+                result.add(iterator.next().getElement());
+            } while (iterator.hasNext());
+        }
+        Stream<OUT> stream = new IntermediatePart<OUT, OUT>(StreamIterator.of(result));
+        return stream;
     }
 
     @Override
-    public Stream<OUT> onErrorMapChecked(ThrowingFunction<? super List<Exception>, ? extends OUT> errorMapper) {
-        return null;
+    public long count() {
+        return getSource().count();
     }
 
     @Override
-    public Stream<OUT> onErrorFilter() {
-        return null;
-    }
-
-    @Override
-    public StreamOperation<IN> getStreamOperation() {
-        return null;
+    public Optional<OUT> findFirst() {
+        return iterator.hasNext() ? Optional.of(iterator.next().getElement()) : Optional.empty();
     }
 }
