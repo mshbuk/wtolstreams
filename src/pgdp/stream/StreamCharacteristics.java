@@ -35,17 +35,23 @@ public final class StreamCharacteristics {
         return streamSize;
     }
 
-    public boolean withDistinct(boolean b) {
-        return distinct;
-    }
-
-    public boolean withChecked (boolean b) {
-        return checked;
-    }
-
     public StreamCharacteristics regular () {
-        return new StreamCharacteristics(OptionalLong.empty(), false, false);
+        StreamCharacteristics sc = new StreamCharacteristics(null, false, false);
+        return sc;
     }
 
+    public StreamCharacteristics withStreamSize(long streamSize) {
+        StreamCharacteristics sc = new StreamCharacteristics(OptionalLong.of(streamSize), distinct, checked);
+        return sc;
+    }
 
+    public StreamCharacteristics withDistinct(boolean distinct1) {
+        StreamCharacteristics sc = new StreamCharacteristics(streamSize, distinct1, checked);
+        return sc;
+    }
+
+    public StreamCharacteristics withChecked(boolean checked1) {
+        StreamCharacteristics sc = new StreamCharacteristics(streamSize, distinct, checked1);
+        return sc;
+    }
 }
