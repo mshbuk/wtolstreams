@@ -25,6 +25,18 @@ public final class StreamCharacteristics {
         return checked;
     }
 
+    private OptionalLong withStreamSize(OptionalLong ol) {
+        return streamSize;
+    }
+
+    private boolean withDistinct(boolean b) {
+        return distinct;
+    }
+
+    private boolean withChecked (boolean b) {
+        return checked;
+    }
+
     private StreamCharacteristics regular () {
         return new StreamCharacteristics(OptionalLong.empty(), false, false);
     }
