@@ -46,9 +46,10 @@ public class StreamElement<T> {
     }
 
     private <R> StreamElement<R> withExceptionAdded(Exception e) {
-        List<Exception> lastList = new ArrayList<>();
-        lastList.add(e);
-        return new StreamElement<>(null, lastList);
+        List<Exception> list = new ArrayList<>();
+        StreamElement<R> myStreamElementWithR = new StreamElement<>((R)element,listOfExceptions,State.INCORRECT);
+        myStreamElementWithR.listOfExceptions.add(e);
+        return myStreamElementWithR;
     }
 
     public <R> StreamElement<R> tryAdapt() {
@@ -57,8 +58,8 @@ public class StreamElement<T> {
     }
 
     private static <T> StreamElement<T> of(T t) {
-        StreamElement<T> myStreamElement = new StreamElement<>(t);
-        return myStreamElement;
+        List<Exception> list = new ArrayList<>();
+        return new StreamElement<>(t, list);
     }
 
     public int hashCode() {
