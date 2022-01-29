@@ -20,26 +20,27 @@ public class StreamElement<T> {
     }
 
     private <R> StreamElement<R> withExceptionAdded(Exception e) {
-    return null;
+        return null;
     }
 
     private void tryAdapt() {
 
     }
-    private <T> StreamElement <T> of (T t){
-    return null;
+
+    private <T> StreamElement<T> of(T t) {
+        return null;
     }
 
-    public int hashCode(){
-    return 0;
+    public int hashCode() {
+        return 0;
     }
 
-    public boolean equals(Object obj){
-    return false;
+    public boolean equals(Object obj) {
+        return false;
     }
 
-    public String toString(){
-    return  "";
+    public String toString() {
+        return "";
     }
 
 
