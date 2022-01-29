@@ -13,31 +13,37 @@ public final class StreamCharacteristics {
         this.checked = checked;
     }
 
-    private OptionalLong getStreamSize() {
+    private StreamCharacteristics() {
+        streamSize = null;
+        distinct = false;
+        checked = false;
+    }
+
+    public OptionalLong getStreamSize() {
         return streamSize;
     }
 
-    private boolean isDistinct() {
+    public boolean isDistinct() {
         return distinct;
     }
 
-    private boolean isChecked () {
+    public boolean isChecked () {
         return checked;
     }
 
-    private OptionalLong withStreamSize(OptionalLong ol) {
+    public OptionalLong withStreamSize(OptionalLong ol) {
         return streamSize;
     }
 
-    private boolean withDistinct(boolean b) {
+    public boolean withDistinct(boolean b) {
         return distinct;
     }
 
-    private boolean withChecked (boolean b) {
+    public boolean withChecked (boolean b) {
         return checked;
     }
 
-    private StreamCharacteristics regular () {
+    public StreamCharacteristics regular () {
         return new StreamCharacteristics(OptionalLong.empty(), false, false);
     }
 
