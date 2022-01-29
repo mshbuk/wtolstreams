@@ -26,6 +26,9 @@ public class StreamElement<T> {
     private void tryAdapt() {
 
     }
+    private <T> StreamElement <T> of (T t){
+    return null;
+    }
 
     public int hashCode(){
     return 0;
