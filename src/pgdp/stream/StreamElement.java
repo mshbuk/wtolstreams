@@ -1,5 +1,4 @@
 package pgdp.stream;
-
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -42,7 +41,7 @@ public class StreamElement<T> {
         if (listOfExceptions.size() == 0) {
             return false;
         } else {
-            return false;
+            return true;
         }
     }
 
