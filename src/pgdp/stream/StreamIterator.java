@@ -27,7 +27,8 @@ public interface StreamIterator<T> {
         return new StreamIterator<T>() {
             @Override
             public boolean hasNext() {
-                return stream.iterator().hasNext();
+                if(stream.iterator().next() == null) return false;
+                else return true;
             }
 
             @Override
@@ -37,7 +38,11 @@ public interface StreamIterator<T> {
 
             @Override
             public OptionalLong getSize() {
-                return OptionalLong.of(stream.count());
+                if(OptionalLong.of(stream.count()) != null) {
+                    return OptionalLong.of(stream.count());
+                } else {
+                    return OptionalLong.empty();
+                }
             }
         };
     }
