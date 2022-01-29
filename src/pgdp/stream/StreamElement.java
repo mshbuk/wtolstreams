@@ -7,11 +7,11 @@ public class StreamElement<T> {
     public T element;
     public List<Exception> listOfExceptions;
 
-    private StreamElement(T element){
+    private StreamElement(T element) {
         this.element = element;
     }
 
-    private StreamElement(){
+    private StreamElement() {
         this.element = null;
     }
 
