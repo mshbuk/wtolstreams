@@ -1,21 +1,32 @@
 package pgdp.stream;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
 public class StreamElement<T> {
     private final T element;
     private final List<Exception> listOfExceptions;
+    private final State state;
 
-    private StreamElement(T element, List<Exception> listOfExceptions) {
+    private StreamElement(T element, List<Exception> listOfExceptions, State state) {
+        this.state = state;
+        this.listOfExceptions = new LinkedList<>(listOfExceptions);
         this.element = element;
-        this.listOfExceptions = listOfExceptions;
     }
 
-    private StreamElement(List<Exception> listOfExceptions) {
-        this.listOfExceptions = listOfExceptions;
-        this.element = null;
+    private StreamElement(T element, List<Exception> listOfExceptions) {
+        state = State.REGULAR;
+        this.element = element;
+        this.listOfExceptions = new LinkedList<>(listOfExceptions);
+
+    }
+
+    private StreamElement(T t) {
+        state = State.REGULAR;
+        this.listOfExceptions = new LinkedList<>();
+        this.element = t;
     }
 
     private T getElement() {
@@ -23,50 +34,56 @@ public class StreamElement<T> {
     }
 
     private List<Exception> getExceptions() {
-        return listOfExceptions;
+        LinkedList<Exception> listExceptions = new LinkedList<>(listOfExceptions);
+        return listExceptions;
     }
 
     private boolean hasExceptions() {
-        if (getExceptions() != null) return true;
-        else return false;
+        if (listOfExceptions.size() == 0) {
+            return false;
+        } else {
+            return false;
+        }
     }
 
     private <R> StreamElement<R> withExceptionAdded(Exception e) {
-        return null;
+        List<Exception> lastList = new ArrayList<>();
+        lastList.add(e);
+        return new StreamElement<>(null, lastList);
     }
 
-    public <R> StreamElement <R> tryAdapt () throws Exception {
-        if (!hasExceptions())
-            return new StreamElement<>(null, listOfExceptions);
-        else throw new Exception();
+    public <R> StreamElement<R> tryAdapt() {
+        StreamElement<R> newStreamElement = new StreamElement<>((R) element, listOfExceptions);
+        return newStreamElement;
     }
 
-    private static <T> StreamElement <T> of (T t){
+    private static <T> StreamElement<T> of(T t) {
         List<Exception> list = new ArrayList<>();
-        return new StreamElement<>(t,list);
+        return new StreamElement<>(t, list);
     }
 
     public int hashCode() {
-        return Objects.hash(element, listOfExceptions);
+        return Objects.hash(element, listOfExceptions, state);
     }
 
     public boolean equals(Object obj) {
-        if(obj == null) {
+        if (obj == null) {
             return false;
         }
-        if(getClass() != obj.getClass()) {
+        if (getClass() != obj.getClass()) {
             return false;
         }
-        if(this == obj) {
+        if (this == obj) {
             return true;
         }
         StreamElement<?> that = (StreamElement<?>) obj;
-        return Objects.equals(element, that.element) && Objects.equals(listOfExceptions,that.listOfExceptions);
+        return Objects.equals(element, that.element) && Objects.equals(listOfExceptions, that.listOfExceptions);
     }
 
     @Override
     public String toString() {
-        return "StreamElement element:" + element +
-                ", listOfExceptions:" + listOfExceptions;
+        return "StreamElement element: " + element +
+                "State of the element: " + state +
+                "listOfExceptions: " + listOfExceptions;
     }
 }
