@@ -1,10 +1,19 @@
 package pgdp.stream;
 
 import java.util.List;
+import java.util.Objects;
 
 public class StreamElement<T> {
     public T element;
     public List<Exception> listOfExceptions;
+
+    private StreamElement(T element){
+        this.element = element;
+    }
+
+    private StreamElement(){
+        this.element = null;
+    }
 
     private T getElement() {
         return element;
@@ -32,16 +41,26 @@ public class StreamElement<T> {
     }
 
     public int hashCode() {
-        return 0;
+        return Objects.hash(element, listOfExceptions);
     }
 
     public boolean equals(Object obj) {
-        return false;
+        if(obj == null) {
+            return false;
+        }
+        if(getClass() != obj.getClass()) {
+            return false;
+        }
+        if(this == obj) {
+            return true;
+        }
+        StreamElement<?> that = (StreamElement<?>) obj;
+        return Objects.equals(element, that.element) && Objects.equals(listOfExceptions,that.listOfExceptions);
     }
 
+    @Override
     public String toString() {
-        return "";
+        return "StreamElement element:" + element +
+                ", listOfExceptions:" + listOfExceptions;
     }
-
-
 }
