@@ -42,7 +42,7 @@ public interface Stream<T> {
      * zurückgibt. Der Filter hat auf fehlerhafte Elemente keinen Einfluss, sie
      * werden einfach weitergereicht.
      *
-     * @param mapper die Bedingung, nach der Elemente im Stream weitergereicht (test
+     //* @param mapper die Bedingung, nach der Elemente im Stream weitergereicht (test
      *               liefert true) werden oder herausgefiltert (test liefert false).
      *               Tritt dabei ein Fehler aus, so wird dieser als fehlerhaftes
      *               Element durch den Stream gereicht und nicht herausgefiltert.
@@ -111,10 +111,10 @@ public interface Stream<T> {
      * <b>Dies ist eine terminale Stream-Operation.</b>
      *
      * @return die Anzahl der Elemente im Stream
-     * @throws ErrorsAtTerminalOperationException falls die exakte Anzahl unbekannt
+     //* @throws ErrorsAtTerminalOperationException falls die exakte Anzahl unbekannt
      *                                            ist und ein fehlerhaftes Element
      *                                            verarbeitet werden müsste
-     * @throws CheckedStreamException             falls der Stream an dem Punkt ein
+     //* @throws CheckedStreamException             falls der Stream an dem Punkt ein
      *                                            "Checked Stream" ist
      */
     long count();
@@ -127,9 +127,9 @@ public interface Stream<T> {
      *
      * @return das erste Element im Stream, falls vorhanden.
      * @throws NullPointerException               falls das erste Element null ist
-     * @throws ErrorsAtTerminalOperationException falls das erste Element fehlerhaft
+     //* @throws ErrorsAtTerminalOperationException falls das erste Element fehlerhaft
      *                                            ist
-     * @throws CheckedStreamException             falls der Stream an dem Punkt ein
+    // * @throws CheckedStreamException             falls der Stream an dem Punkt ein
      *                                            "Checked Stream" ist
      * @implSpec sobald ein Element gefunden wurde, werden keine weiteren Elemente
      *           von dem Stream verarbeitet.
@@ -150,9 +150,9 @@ public interface Stream<T> {
      * @return das Resultat aus der Akkumulation, falls vorhanden.
      * @throws NullPointerException               falls accumulator oder das
      *                                            Resultat null ist
-     * @throws ErrorsAtTerminalOperationException falls irgendein Element fehlerhaft
+     //* @throws ErrorsAtTerminalOperationException falls irgendein Element fehlerhaft
      *                                            ist
-     * @throws CheckedStreamException             falls der Stream an dem Punkt ein
+     //* @throws CheckedStreamException             falls der Stream an dem Punkt ein
      *                                            "Checked Stream" ist
      */
     Optional<T> reduce(BinaryOperator<T> accumulator);
