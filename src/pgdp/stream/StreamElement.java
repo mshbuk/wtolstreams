@@ -78,7 +78,7 @@ public class StreamElement<T> {
             return true;
         }
         StreamElement<?> that = (StreamElement<?>) obj;
-        return Objects.equals(element, that.element) && Objects.equals(listOfExceptions, that.listOfExceptions) && state == this.state;
+        return Objects.equals(element, that.element) && Objects.equals(listOfExceptions, that.listOfExceptions) && state == that.state;
     }
 
     @Override
