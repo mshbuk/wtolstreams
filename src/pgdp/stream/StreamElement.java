@@ -46,7 +46,7 @@ public class StreamElement<T> {
     }
 
     private <R> StreamElement<R> withExceptionAdded(Exception e) {
-        List<Exception> list = new ArrayList<>();
+        List<Exception> lastList = new ArrayList<>();
         StreamElement<R> myStreamElementWithR = new StreamElement<>((R)element,listOfExceptions,State.INCORRECT);
         myStreamElementWithR.listOfExceptions.add(e);
         return myStreamElementWithR;
@@ -59,7 +59,8 @@ public class StreamElement<T> {
 
     private static <T> StreamElement<T> of(T t) {
         List<Exception> list = new ArrayList<>();
-        return new StreamElement<>(t, list);
+        StreamElement<T> myStreamElementWithT = new StreamElement<>(t);
+        return myStreamElementWithT;
     }
 
     public int hashCode() {
