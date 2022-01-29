@@ -28,16 +28,16 @@ public class StreamElement<T> {
         this.element = t;
     }
 
-    private T getElement() {
+    public T getElement() {
         return element;
     }
 
-    private List<Exception> getExceptions() {
+    public List<Exception> getExceptions() {
         LinkedList<Exception> listExceptions = new LinkedList<>(listOfExceptions);
         return listExceptions;
     }
 
-    private boolean hasExceptions() {
+    public boolean hasExceptions() {
         if (listOfExceptions.size() == 0) {
             return false;
         } else {
@@ -45,7 +45,7 @@ public class StreamElement<T> {
         }
     }
 
-    private <R> StreamElement<R> withExceptionAdded(Exception e) {
+    public <R> StreamElement<R> withExceptionAdded(Exception e) {
         List<Exception> lastList = new ArrayList<>();
         lastList.add(e);
         return new StreamElement<>(null, lastList);
@@ -56,7 +56,7 @@ public class StreamElement<T> {
         return newStreamElement;
     }
 
-    private static <T> StreamElement<T> of(T t) {
+    public static <T> StreamElement<T> of(T t) {
         List<Exception> list = new ArrayList<>();
         return new StreamElement<>(t, list);
     }
