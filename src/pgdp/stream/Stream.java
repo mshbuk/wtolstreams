@@ -167,9 +167,9 @@ public interface Stream<T> {
      * @throws NullPointerException               falls der collectionGenerator oder
      *                                            die daraus kommende Collection
      *                                            null ist
-     * @throws ErrorsAtTerminalOperationException falls irgendein Element fehlerhaft
+     //* @throws ErrorsAtTerminalOperationException falls irgendein Element fehlerhaft
      *                                            ist
-     * @throws CheckedStreamException             falls der Stream an dem Punkt ein
+    // * @throws CheckedStreamException             falls der Stream an dem Punkt ein
      *                                            "Checked Stream" ist
      */
     Collection<T> toCollection(Supplier<? extends Collection<T>> collectionGenerator);
@@ -257,4 +257,217 @@ public interface Stream<T> {
     static <T> Stream<T> of(T... elements) {
         return null; // TODO
     }
+
+    //Translation into English:
+    /**
+     * Exception catching stream implementation
+     * <p>
+     * A stream method can be called once on a stream instance,
+     * After this, this stream instance is bound to the corresponding operation or
+     * in the case of a terminal stream operation, the stream is evaluated and
+     * consumed in the process. Therefore, used stream instances cannot be reused
+     * will throw an {@link IllegalStateException}.
+     *
+     * @param <T> the type of elements in the stream
+     */
+
+
+    /**
+     * Transforms all elements of the stream from T to R using the pass
+     * function. The transformation has no influence on faulty elements,
+     * they are simply passed on.
+     *
+     * @param <R> the type of the elements of the stream after map
+     * @param mapper the function that maps the elements of the stream of type T (or
+     * a superclass thereof) to type R (or a subclass thereof)
+     * converts. If an error occurs, it is displayed as a
+     * erroneous element passed through the stream.
+     * @return a stream of type R
+     * @throws NullPointerException if mapper is null
+     */
+
+    /**
+     * Filters the elements from the stream for which the given predicate is false
+     * returns. The filter has no effect on erroneous elements, they
+     * are simply passed on.
+     *
+     //* @param mapper the condition on which elements are passed in the stream (test
+     * returns true) or filtered out (test returns false).
+     * If an error occurs, it is marked as an error
+     * Element passed through the stream and not filtered out.
+     * @return a stream of type T
+     * @throws NullPointerException if filter is null
+     */
+
+/**
+ * See {@link #map(Function)}, but mapper can throw arbitrary exceptions.
+ * <p>
+ * <b>This stream operation turns the stream into a "Checked
+ *stream".</b>
+ *
+ * @throws NullPointerException if mapper is null
+ * @see #map(function)
+ */
+
+
+/**
+ * See {@link #filter(Predicate)}, but filter can throw any exception
+ * throw.
+ * <p>
+ * <b>This stream operation turns the stream into a "Checked
+ *stream".</b>
+ *
+ * @throws NullPointerException if filter is null
+ * @see #filter(Predicate)
+ */
+
+    /**
+     * Eliminates duplicates from the stream, erroneous elements are not included
+     * affected. The order of the elements does not change
+     * same elements only the first one is kept; become defective items
+     * simply passed in. If the stream contains a null element, then
+     * these are not treated differently than normal elements of the result stream
+     * contains at most one null element.
+     * <p>
+     * Example: off
+     *
+     * <pre>
+     * [1, 3, 2, 2, null, 1, {faulty}, 3, {faulty}, 4]
+     * </pre>
+     *
+     * will
+     *
+     * <pre>
+     * [1, 3, 2, null, {faulty}, {faulty}, 4]
+     * </pre>
+     *
+     * @return a stream of the same type that is free of duplicates
+     */
+
+
+    /**
+     * Returns the number of elements in the stream. Is the size of the stream
+     * Known, the result is returned immediately without breaking the stream
+     * run through.
+     * <p>
+     * If the size is not known, all elements in the stream are counted. If
+     * Elements of it are in error, an ErrorsAtTerminalOperationException
+     * thrown. (E.g. since it cannot be determined whether these elements are
+     * would have to be filtered by a filter operation).
+     * <p>
+     * <b>This is a terminal stream operation.</b>
+     *
+     * @return the number of elements in the stream
+    //* @throws ErrorsAtTerminalOperationException if the exact number is unknown
+     * is and an erroneous element
+     * would have to be processed
+    //* @throws CheckedStreamException if the stream comes in at that point
+     * "Checked Stream" is
+     */
+
+/**
+ * Returns the first element in the stream. If the stream is empty, then
+ * Optional.empty() returned.
+ * <p>
+ * <b>This is a terminal stream operation.</b>
+ *
+ * @return the first element in the stream, if any.
+ * @throws NullPointerException if the first element is null
+//* @throws ErrorsAtTerminalOperationException if the first element has an error
+ *                                            is
+// * @throws CheckedStreamException if the stream comes in at that point
+ * "Checked Stream" is
+ * @implSpec once an item is found, no more items are found
+ * processed by the stream.
+ */
+
+
+    /**
+     * Accumulates all elements in the stream with the given accumulator. is
+     * the stream is empty, so Optional.empty() is returned. Is at least one
+     * Element available, this will be used as start value and all on it
+     * following are combined with the value from before, resulting in a again
+     * gives new value. The accumulated value is given as the first parameter
+     * passed, the value to add second.
+     * <p>
+     * <b>This is a terminal stream operation.</b>
+     *
+     * @param accumulator an accumulator for elements of type T
+     * @return the result from the accumulation, if any.
+     * @throws NullPointerException if accumulator or that
+     * Result is zero
+    //* @throws ErrorsAtTerminalOperationException if any element is in error
+     *                                            is
+    //* @throws CheckedStreamException if the stream comes in at that point
+     * "Checked Stream" is
+     */
+
+
+
+    /**
+     * Gathers all items in a Collection from the passed
+     * collectionGenerator is newly created or taken.
+     * <p>
+     * <b>This is a terminal stream operation.</b>
+     *
+     * @return the result from the accumulation, if any.
+     * @throws NullPointerException if the collectionGenerator or
+     * the resulting Collection
+     * is zero
+    //* @throws ErrorsAtTerminalOperationException if any element is in error
+     *                                            is
+    // * @throws CheckedStreamException if the stream comes in at that point
+     * "Checked Stream" is
+     */
+
+
+
+    /**
+     * Transforms all bad elements of the stream to regular ones, not
+     * erroneous elements using the passed function. The transformation
+     * does not affect elements that are already non-faulty, they will
+     * simply passed on. If an error occurs with errorMapper itself, so
+     * the element remains erroneous and the exception that occurred is added to the list
+     * added.
+     * <p>
+     * <b>If the stream is a "Checked Stream", it isn't afterwards</b>
+     *
+     * @param errorMapper the function that maps the erroneous elements of the stream
+     * regular converts. Occurs at errorMapper itself
+     * Errors on, the item remains defective, and the new
+     * the exception that occurred is added to the element.
+     * @return a stream of the same type, guaranteed no "checked stream"
+     * @throws NullPointerException if errorMapper is null
+     */
+
+
+    /**
+     * See {@link #onErrorMap(Function)}, but errorMapper can use any
+     * Throw exceptions and if the stream is a checked stream, changes
+     * nothing about that.
+     * <p>
+     * <b>This stream operation turns the stream into a "Checked
+     *stream".</b>
+     *
+     * @throws NullPointerException if errorMapper is null
+     * @see #onErrorMap(Function)
+     */
+
+
+
+    /**
+     * Filters out all erroneous elements from the stream.
+     * <p>
+     * <b>If the stream is a "Checked Stream", it isn't afterwards</b>
+     *
+     * @return a stream of the same type, with no bad elements and guaranteed none
+     * "Checked Stream"
+     */
+
+
+    /**
+     * Creates a new stream using the passed stream
+     */
+
+
 }
