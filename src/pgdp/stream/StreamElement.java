@@ -57,8 +57,8 @@ public class StreamElement<T> {
     }
 
     private static <T> StreamElement<T> of(T t) {
-        List<Exception> list = new ArrayList<>();
-        return new StreamElement<>(t, list);
+        StreamElement<T> myStreamElement = new StreamElement<>(t);
+        return myStreamElement;
     }
 
     public int hashCode() {
